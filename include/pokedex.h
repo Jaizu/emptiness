@@ -4,6 +4,8 @@
 extern u8 gUnusedPokedexU8;
 extern void (*gPokedexVBlankCB)(void);
 
+#define KANTO_DEX_COUNT 151
+
 enum
 {
     DEX_MODE_HOENN,
@@ -20,7 +22,7 @@ enum
 
 struct PokedexEntry
 {
-    /*0x00*/ u8 categoryName[12];
+    /*0x00*/ u8 categoryName[13];
     /*0x0C*/ u16 height; //in decimeters
     /*0x0E*/ u16 weight; //in hectograms
     /*0x10*/ const u8 *description;
