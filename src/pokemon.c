@@ -4412,7 +4412,7 @@ u8 CalculatePlayerPartyCount(void)
 {
     gPlayerPartyCount = 0;
 
-    while (gPlayerPartyCount < 6
+    while (gPlayerPartyCount < PARTY_SIZE
         && GetMonData(&gPlayerParty[gPlayerPartyCount], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
     {
         gPlayerPartyCount++;
@@ -4425,7 +4425,7 @@ u8 CalculateEnemyPartyCount(void)
 {
     gEnemyPartyCount = 0;
 
-    while (gEnemyPartyCount < 6
+    while (gEnemyPartyCount < PARTY_SIZE
         && GetMonData(&gEnemyParty[gEnemyPartyCount], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
     {
         gEnemyPartyCount++;
@@ -4514,7 +4514,7 @@ void CreateSecretBaseEnemyParty(struct SecretBase *secretBaseRecord)
 
             SetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM, &gBattleResources->secretBase->party.heldItems[i]);
 
-            for (j = 0; j < 6; j++)
+            for (j = 0; j < NUM_STATS; j++)
                 SetMonData(&gEnemyParty[i], MON_DATA_HP_EV + j, &gBattleResources->secretBase->party.EVs[i]);
 
             for (j = 0; j < MAX_MON_MOVES; j++)
@@ -5558,14 +5558,14 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem)
                     }
                 }
                 break;
-            case EVO_LEVEL_SPECIFIC_MON_TYPE_IN_PARTY:
+            case EVO_LEVEL_DARK_TYPE_MON_IN_PARTY:
                 if (gEvolutionTable[species][i].param <= level)
                 {
                     for (j = 0; j < PARTY_SIZE; j++)
                     {
                         u16 species = GetMonData(&gPlayerParty[j], MON_DATA_SPECIES, NULL);
-                        if (gBaseStats[species].type1 == gEvolutionTable[species][i].param
-                            || gBaseStats[species].type2 == gEvolutionTable[species][i].param)
+                        if (gBaseStats[species].type1 == TYPE_DARK
+                            || gBaseStats[species].type2 == TYPE_DARK)
                         {
                             targetSpecies = gEvolutionTable[species][i].targetSpecies;
                             break;
